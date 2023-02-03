@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Catalog.Application.Services.Repositories.CategoryRepositories
+namespace Catalog.Application.Services.Repositories.CategoryRepository
 {
     public interface ICategoryWriteRepository:IWriteRepository<Category>
     {

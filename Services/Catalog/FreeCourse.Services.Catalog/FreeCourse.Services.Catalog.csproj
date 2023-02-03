@@ -11,12 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Core\Catalog.Application\Catalog.Application.csproj" />
     <ProjectReference Include="..\Core\Catalog.Domain\Catalog.Domain.csproj" />
+    <ProjectReference Include="..\Infrastracture\Persistence\Persistence.csproj" />
   </ItemGroup>
 
 </Project>

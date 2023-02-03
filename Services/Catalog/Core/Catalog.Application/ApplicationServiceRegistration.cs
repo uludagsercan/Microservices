@@ -1,8 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Catalog.Domain.Entities;
-using Catalog.Application.Settings;
+﻿using Catalog.Application.Settings;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using System.Reflection;
+using MediatR;
 
 namespace Catalog.Application
 {
@@ -15,6 +16,8 @@ namespace Catalog.Application
             {
                 return sp.GetRequiredService<IOptions<DatabaseSettings>>().Value;
             });
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddMediatR(Assembly.GetExecutingAssembly());
             return services;
         }
     }
