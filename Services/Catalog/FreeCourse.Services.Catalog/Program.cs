@@ -1,4 +1,5 @@
 using Catalog.Application;
+using Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationService(builder.Configuration);
+builder.Services.AddPersistenceService();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
