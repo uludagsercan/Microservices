@@ -1,6 +1,7 @@
 ﻿using Catalog.Application.Services.Features.CategoryFeature.Commands.CreateCategory;
 using Catalog.Application.Services.Features.CategoryFeature.Commands.UpdateCategory;
 using Catalog.Application.Services.Features.CategoryFeature.Queries.GetAllCategory;
+using Catalog.Application.Services.Features.CategoryFeature.Queries.GetAllCategoryWithPage;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,6 +37,15 @@ namespace FreeCourse.Services.Catalog.Controllers
 
         [HttpGet("[action]")]
         public async Task<IActionResult> GetAll([FromQuery]GetAllCategoryQueryRequest getAllCategoryQueryRequest)
+        {
+            var result = await _mediator.Send(getAllCategoryQueryRequest);
+            if (result.Response.IsSuccessful)
+                return Ok(result);
+            return BadRequest(result);
+        }
+
+        [HttpGet("[action]/{Page}/{PageSize}")]
+        public async Task<IActionResult> GetAllCategoryWithPage([FromRoute] GetAllCategoryWtihPageQueryRequest getAllCategoryQueryRequest)
         {
             var result = await _mediator.Send(getAllCategoryQueryRequest);
             if (result.Response.IsSuccessful)
