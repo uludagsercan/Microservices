@@ -23,6 +23,8 @@
 
   <ItemGroup>
     <Folder Include="Services\Features\CategoryFeature\Rules\" />
+    <Folder Include="Services\Features\CourseFeature\BusinessRules\" />
+    <Folder Include="Services\Features\CourseFeature\Validators\" />
   </ItemGroup>
 
 </Project>

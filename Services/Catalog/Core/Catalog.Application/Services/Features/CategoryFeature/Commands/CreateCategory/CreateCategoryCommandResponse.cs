@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Catalog.Domain.Entities;
+using FreeCourse.Shared.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,22 +11,8 @@ namespace Catalog.Application.Services.Features.CategoryFeature.Commands.CreateC
 {
     public class CreateCategoryCommandResponse
     {
-        public string Name { get; set; }
-        [JsonIgnore]
-        public int StatusCode { get; set; }
-        [JsonIgnore]
-        public bool IsSuccessful { get; set; }
+        public ResponseDto<Category> Response { get; set; }
     }
 
-    public class SuccessCreateCategoryCommadResponse : CreateCategoryCommandResponse
-    {
-
-
-    }
-
-    public class ErrorsCategoryCommandResponse : CreateCategoryCommandResponse
-    {
-
-        public List<string> Errors { get; set; }
-    }
+ 
 }

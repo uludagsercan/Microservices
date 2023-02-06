@@ -24,7 +24,7 @@ namespace Catalog.Application.Services.Features.CategoryFeature.Commands.CreateC
         {
             var mapperCategory = _mapper.Map<Category>(request);
             await _categoryWriteRepository.AddAsync(mapperCategory);
-            return new SuccessCreateCategoryCommadResponse() { IsSuccessful = true, Name = mapperCategory.Name, StatusCode = 200 };
+            return new () { Response = new() { Data=mapperCategory,IsSuccessful =true,StatusCode =200} };
         }
     }
 }

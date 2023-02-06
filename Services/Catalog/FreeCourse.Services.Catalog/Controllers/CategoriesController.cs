@@ -21,7 +21,7 @@ namespace FreeCourse.Services.Catalog.Controllers
         public async Task<IActionResult> Add([FromBody]CreateCategoryCommandRequest createCategoryCommandRequest)
         {
             var result =await _mediator.Send(createCategoryCommandRequest);
-            if(result.IsSuccessful)
+            if(result.Response.IsSuccessful)
                 return Ok(result);
             return BadRequest(result);
         }
@@ -44,7 +44,7 @@ namespace FreeCourse.Services.Catalog.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("[action]/{Page}/{PageSize}")]
+        [HttpGet("[action]/{page}/{pageSize}")]
         public async Task<IActionResult> GetAllCategoryWithPage([FromRoute] GetAllCategoryWtihPageQueryRequest getAllCategoryQueryRequest)
         {
             var result = await _mediator.Send(getAllCategoryQueryRequest);
