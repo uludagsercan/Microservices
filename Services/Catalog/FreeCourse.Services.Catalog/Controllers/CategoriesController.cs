@@ -44,7 +44,7 @@ namespace FreeCourse.Services.Catalog.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("[action]/{page}/{pageSize}")]
+        [HttpGet("[action]/{Page}/{PageSize}")]
         public async Task<IActionResult> GetAllCategoryWithPage([FromRoute] GetAllCategoryWtihPageQueryRequest getAllCategoryQueryRequest)
         {
             var result = await _mediator.Send(getAllCategoryQueryRequest);

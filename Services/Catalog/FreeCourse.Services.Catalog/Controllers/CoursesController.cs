@@ -37,7 +37,7 @@ namespace FreeCourse.Services.Catalog.Controllers
             return BadRequest(result);
         }
 
-        [HttpDelete("[action]/{id}")]
+        [HttpDelete("[action]/{Id}")]
         public async Task<IActionResult> Delete([FromRoute] DeleteCourseCommandRequest request)
         {
             var result = await _mediator.Send(request);
@@ -45,7 +45,7 @@ namespace FreeCourse.Services.Catalog.Controllers
                 return Ok(result);
             return BadRequest(result);
         }
-        [HttpGet("[action]/{id}")]
+        [HttpGet("[action]/{Id}")]
         public async Task<IActionResult> GetById([FromRoute] GetByIdCourseQueryRequest request)
         {
             var result = await _mediator.Send(request);
@@ -62,7 +62,7 @@ namespace FreeCourse.Services.Catalog.Controllers
                 return Ok(result);
             return BadRequest(result);
         }
-        [HttpGet("[action]/{page}/{pageSize}")]
+        [HttpGet("[action]/{Page}/{PageSize}")]
         public async Task<IActionResult> GetAllWithPage([FromRoute] GetAllCourseWithPageQueryRequest request)
         {
             var result = await _mediator.Send(request);
