@@ -1,2 +1,5 @@
 Services
 	CatalogApý=>5011
+	PhotoStock=>5012
+
+Identity => 5001
