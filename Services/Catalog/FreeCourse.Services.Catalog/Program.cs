@@ -16,11 +16,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationService(builder.Configuration);
 builder.Services.AddPersistenceService();
-
+builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     options.Authority = builder.Configuration["IdentityServerUrl"];
     options.Audience = "resource_catalog";
+    
     options.RequireHttpsMetadata = false;
 });
 
