@@ -39,6 +39,11 @@ namespace FreeCourse.IdentityServer
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddCors(opt =>
+            {
+                opt.AddDefaultPolicy(policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            });
+
             var builder = services.AddIdentityServer(options =>
             {
                 options.Events.RaiseErrorEvents = true;
@@ -82,6 +87,7 @@ namespace FreeCourse.IdentityServer
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseCors();
             app.UseIdentityServer();
             app.UseAuthorization();
             app.UseAuthorization();
