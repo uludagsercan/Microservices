@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StackExchange.Redis" Version="2.6.90" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.13" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\FreeCourse.Services.Basket.Persistence\FreeCourse.Services.Basket.Persistence.csproj" />
+    <ProjectReference Include="..\..\..\..\FreeCourse.Shared\FreeCourse.Shared.csproj" />
+    <ProjectReference Include="..\..\Core\Application\FreeCourse.Services.Basket.Aplication\FreeCourse.Services.Basket.Aplication.csproj" />
+  </ItemGroup>
+
+</Project>
