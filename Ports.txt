@@ -1,5 +1,5 @@
 Services
 	CatalogApý=>5011
 	PhotoStock=>5012
-
+	Basket=>5013
 Identity => 5001

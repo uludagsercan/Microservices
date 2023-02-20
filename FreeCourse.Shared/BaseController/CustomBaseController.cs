@@ -13,5 +13,11 @@ namespace FreeCourse.Shared.BaseController
             };
 
         }
+
+        public IActionResult CreateActionResultInstance<T>(T response)
+        {
+            return new ObjectResult(response);
+        }
     }
+  
 }

@@ -3,11 +3,6 @@ using Catalog.Application.Services.Repositories.CourseRepository;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence.Repositories.CategoryRepository;
 using Persistence.Repositories.CourseRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Persistence
 {
