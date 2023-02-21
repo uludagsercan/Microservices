@@ -2,4 +2,5 @@ Services
 	CatalogApý=>5011
 	PhotoStock=>5012
 	Basket=>5013
+	Discount=>5014
 Identity => 5001
