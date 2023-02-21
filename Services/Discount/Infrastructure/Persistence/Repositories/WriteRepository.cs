@@ -14,7 +14,7 @@ namespace Persistence.Repositories
             _context = context;
         }
 
-        public async Task<bool> SaveAsync(string query, TEntity entity)
+        public async Task<bool> SaveAsync(string query, object entity)
         {
             var status =await _context.GetConnection().ExecuteAsync(query, entity);
             if (status > 0)
@@ -22,9 +22,9 @@ namespace Persistence.Repositories
             return false;
         }
 
-        public async Task<bool> DeleteAsync(string query)
+        public async Task<bool> DeleteAsync(string query,  object param)
         {
-            var status = await _context.GetConnection().ExecuteAsync(query);
+            var status = await _context.GetConnection().ExecuteAsync(query,param);
             if (status > 0)
                 return true;
             return false;

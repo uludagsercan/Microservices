@@ -22,7 +22,7 @@ namespace Application.Services.Features.DiscountFeature.Commands.CreateDiscount
         {
             string sqlQuery = $"INSERT INTO discount (id,userid,rate,code) VALUES(@Id,@UserId,@Rate,@Code)";
             var mappedDiscount = _mapper.Map<Discount>(request);
-            mappedDiscount.Id = new Guid().ToString();
+            mappedDiscount.Id = Guid.NewGuid().ToString();
             //mappedDiscount.CreatedTime = DateTime.UtcNow;
             var result =await _discountWriteRepository.SaveAsync(sqlQuery, mappedDiscount);
             return new()

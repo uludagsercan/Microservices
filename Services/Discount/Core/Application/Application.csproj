@@ -12,16 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Features\DiscountFeature\Commands\DeleteDiscount\" />
-    <Folder Include="Services\Features\DiscountFeature\Queries\GetAllDiscounts\" />
-    <Folder Include="Services\Features\DiscountFeature\Queries\GetDiscountById\" />
-    <Folder Include="Services\Features\DiscountFeature\Queries\GetDiscountByCodeAndUserId\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
-    <PackageReference Include="MediatR" Version="12.0.0" />
+    <PackageReference Include="MediatR" Version="11.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
   </ItemGroup>
 

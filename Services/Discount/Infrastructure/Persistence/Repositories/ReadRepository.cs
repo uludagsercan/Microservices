@@ -16,16 +16,25 @@ namespace Persistence.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync(string query)
+        public async Task<IEnumerable<TEntity>> GetWhere(string query,object param = null)
         {
-            var result = await _context.GetConnection().QueryAsync<TEntity>(query);
-            return result;
+            if(param != null)
+            {
+                var result = await _context.GetConnection().QueryAsync<TEntity>(query,param);
+                return result;
+            }
+            else
+            {
+                var result = await _context.GetConnection().QueryAsync<TEntity>(query);
+                return result;
+            }
+         
         }
 
-        public async Task<TEntity> GetWhere(string query)
+        public async Task<TEntity> GetSingleAsync(string query,object param)
         {
-            var result = await _context.GetConnection().QueryAsync<TEntity>(query);
-            return result.FirstOrDefault();
+            var result = await _context.GetConnection().QueryAsync<TEntity>(query,param);
+            return result.SingleOrDefault();
         }
     }
 }

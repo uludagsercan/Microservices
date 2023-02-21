@@ -19,9 +19,9 @@ namespace Application.Services.Features.DiscountFeature.Commands.UpdateDiscount
 
         public async Task<UpdateDiscountCommandResponse> Handle(UpdateDiscountCommandRequest request, CancellationToken cancellationToken)
         {
-            var sqlQuery = $"UPDATE discount SET @userid=UserId,@rate=Rate,@code=Code WHERE @id=Id";
+            var sqlQuery = $"UPDATE discount SET userid=@UserId,rate=@Rate,code=@Code WHERE id=@Id";
             var mappedDiscount = _mapper.Map<Discount>(request);
-            var result = await _discountWriteRepository.SaveAsync(sqlQuery, mappedDiscount);
+            var result = await _discountWriteRepository.SaveAsync(sqlQuery,mappedDiscount) ;
             return new()
             {
                 Response = ResponseDto<NoContent>.Success(204)

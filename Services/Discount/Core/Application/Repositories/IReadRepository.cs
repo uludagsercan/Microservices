@@ -4,7 +4,7 @@ namespace Application.Repositories
 {
     public interface IReadRepository<TEntity> where TEntity : class,IEntity, new()
     {
-        Task<IEnumerable<TEntity>> GetAllAsync(string query);
-        Task<TEntity> GetWhere(string query);
+        Task<IEnumerable<TEntity>> GetWhere(string query,object param = null);
+        Task<TEntity> GetSingleAsync(string query,object param);
     }
 }
