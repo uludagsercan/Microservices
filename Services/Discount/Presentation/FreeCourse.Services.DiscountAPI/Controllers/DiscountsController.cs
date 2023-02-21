@@ -25,39 +25,39 @@ namespace FreeCourse.Services.DiscountAPI.Controllers
         public async Task<IActionResult> CreateDiscount([FromBody] CreateDiscountCommandRequest createDiscountCommandRequest)
         {
             var response = await _mediator.Send(request: createDiscountCommandRequest);
-            return CreateActionResultInstance(response);
+            return CreateActionResultInstance(response.Response);
         }
         [HttpDelete("{Id}")]
         public async Task<IActionResult> DeleteDiscount([FromRoute] DeleteDiscountCommandRequest deleteDiscountCommandRequest)
         {
             var response = await _mediator.Send(request: deleteDiscountCommandRequest);
-            return CreateActionResultInstance(response);
+            return CreateActionResultInstance(response.Resposne);
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateDiscount([FromBody] UpdateDiscountCommandRequest updateDiscountCommandRequest)
         {
             var response = await _mediator.Send(updateDiscountCommandRequest);
-            return CreateActionResultInstance(response);
+            return CreateActionResultInstance(response.Response);
         }
         [HttpGet]
         public async Task<IActionResult> GetAllDiscounts(GetAllDiscountQueryRequest request)
         {
             var response = await _mediator.Send(request);
-            return CreateActionResultInstance(response);
+            return CreateActionResultInstance(response.Response);
         }
 
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetDiscountById([FromRoute]GetDiscountByIdQueryRequest request)
         {
             var response = await _mediator.Send(request);
-            return CreateActionResultInstance(response);
+            return CreateActionResultInstance(response.Response);
         }
         [HttpGet("{Code}/{UserId}")]
         public async Task<IActionResult> GetDiscountByCodeAndUserId([FromRoute] GetDiscountByCodeAndUserIdQueryRequest request)
         {
             var response = await _mediator.Send(request);
-            return CreateActionResultInstance(response);
+            return CreateActionResultInstance(response.Response);
         }
     }
 }
