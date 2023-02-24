@@ -60,9 +60,9 @@ namespace FreeCourse.IdentityServer
                     ClientSecrets={new("secret".Sha256())},
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                     AllowedScopes={ "basket_fullpermission", "discount_fullpermission", IdentityServerConstants.StandardScopes.Email, IdentityServerConstants.StandardScopes.OpenId, IdentityServerConstants.StandardScopes.Profile,IdentityServerConstants.StandardScopes.OfflineAccess,"roles",IdentityServerConstants.LocalApi.ScopeName },
-                    AccessTokenLifetime=60*60*1,
+                    AccessTokenLifetime=60,
                     RefreshTokenExpiration=TokenExpiration.Absolute,
-                    AbsoluteRefreshTokenLifetime = (int)(DateTime.Now.AddDays(60)-DateTime.Now).TotalSeconds,
+                    AbsoluteRefreshTokenLifetime = 120,
                     RefreshTokenUsage = TokenUsage.ReUse
                 }
             };

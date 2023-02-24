@@ -17,6 +17,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     options.Authority = builder.Configuration["IdentityServerUrl"];
     options.Audience = "resource_discount";
     options.RequireHttpsMetadata = false;
+    //options.TokenValidationParameters = new()
+    //{
+    //    LifetimeValidator = (notBefore, expires, securityToken, validationParameters) => expires !=null ?expires >DateTime.Now :false
+    //};
 });
 builder.Services.AddControllers(opt =>
 {

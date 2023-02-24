@@ -3,4 +3,5 @@ Services
 	PhotoStock=>5012
 	Basket=>5013
 	Discount=>5014
+	Order=>5015
 Identity => 5001

@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using FreeCourse.IdentityServer.Services;
+using FreeCourse.IdentityServer.Settings;
 
 namespace FreeCourse.IdentityServer
 {
@@ -31,7 +32,7 @@ namespace FreeCourse.IdentityServer
         {
             services.AddLocalApiAuthentication();
             services.AddControllersWithViews();
-
+            services.Configure<IdentityServerSetting>(Configuration.GetRequiredSection("IdentityServerSettings"));
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -82,8 +83,9 @@ namespace FreeCourse.IdentityServer
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+                
             }
-
+           
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -94,6 +96,7 @@ namespace FreeCourse.IdentityServer
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
+               
             });
         }
     }
