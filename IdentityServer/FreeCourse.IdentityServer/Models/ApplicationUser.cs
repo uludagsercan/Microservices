@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace FreeCourse.IdentityServer.Models
 {
@@ -6,5 +7,7 @@ namespace FreeCourse.IdentityServer.Models
     public class ApplicationUser : IdentityUser
     {
         public string City { get; set; }
+        public string RefreshToken { get; set; }
+        public DateTime? RefreshTokenEndDate { get; set; }
     }
 }
