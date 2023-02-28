@@ -1,3 +1,5 @@
+using FreeCourse.Services.FakePaymentAPI.Settings;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -6,6 +8,28 @@ using System.IdentityModel.Tokens.Jwt;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddMassTransit(opt =>
+{
+    opt.UsingRabbitMq((context, cfg) =>
+    {
+
+
+        cfg.Host(builder.Configuration["RabbitMQSettings:Uri"],port:Convert.ToUInt16(builder.Configuration["RabbitMQSettings:Port"]), "/", host =>
+        {
+            host.Username(builder.Configuration["RabbitMQSettings:Username"]);
+            host.Password(builder.Configuration["RabbitMQSettings:Password"]);
+
+        });
+    });
+});
+builder.Services.Configure<MassTransitHostOptions>(opt =>
+{
+    opt.WaitUntilStarted = true;
+    opt.StartTimeout = TimeSpan.FromSeconds(30);
+    opt.StopTimeout = TimeSpan.FromMinutes(1);
+});
+
 var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>

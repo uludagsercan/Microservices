@@ -1,5 +1,7 @@
 using FreeCourse.Services.Order.Application;
+using FreeCourse.Services.Order.Application.Consumers;
 using FreeCourse.Services.Order.Persistence;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -9,6 +11,33 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+
+builder.Services.AddMassTransit(opt =>
+{
+    opt.AddConsumer<CreateOrderMessageCommandConsumer>();
+    opt.UsingRabbitMq((context, cfg) =>
+    {
+
+
+        cfg.Host(builder.Configuration["RabbitMQSettings:Uri"], port: Convert.ToUInt16(builder.Configuration["RabbitMQSettings:Port"]), "/", host =>
+        {
+            host.Username(builder.Configuration["RabbitMQSettings:Username"]);
+            host.Password(builder.Configuration["RabbitMQSettings:Password"]);
+
+        });
+
+        cfg.ReceiveEndpoint("create-order-service", e =>
+        {
+            e.ConfigureConsumer<CreateOrderMessageCommandConsumer>(context);
+        });
+    });
+});
+builder.Services.Configure<MassTransitHostOptions>(opt =>
+{
+    opt.WaitUntilStarted = true;
+    opt.StartTimeout = TimeSpan.FromSeconds(30);
+    opt.StopTimeout = TimeSpan.FromMinutes(1);
+});
 
 var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 builder.Services.AddAuthorization();

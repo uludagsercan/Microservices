@@ -2,6 +2,7 @@
 using FreeCourse.Services.Order.Application.Features.OrderFeature.Commands.CreateOrder;
 using FreeCourse.Services.Order.Application.Features.OrderFeature.Dtos;
 using FreeCourse.Services.Order.Application.Features.OrderFeature.Queries.GetOrdersByUserId;
+using FreeCourse.Shared.Messages;
 
 namespace FreeCourse.Services.Order.Application.Features.OrderFeature.Profiles
 {
@@ -14,6 +15,8 @@ namespace FreeCourse.Services.Order.Application.Features.OrderFeature.Profiles
             CreateMap<Domain.OrderAggregate.Order, GetOrdersByUserIdQueryResponse>().ReverseMap();
             
             CreateMap<CreateOrderDto,CreateOrderCommandRequest>().ReverseMap();
+            CreateMap<CreateOrderDto, CreateOrderMessageCommand>().ReverseMap();
+            CreateMap<FreeCourse.Shared.Messages.Address, AddressDto>().ReverseMap();
         }
 
     }
