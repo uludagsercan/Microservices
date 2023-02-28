@@ -1,9 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>e7e1f92d-52e7-45b1-a915-d25f86dc2d6e</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,9 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\FreeCourse.Services.Basket.Persistence\FreeCourse.Services.Basket.Persistence.csproj" />
     <ProjectReference Include="..\..\..\..\FreeCourse.Shared\FreeCourse.Shared.csproj" />
     <ProjectReference Include="..\..\Core\Application\FreeCourse.Services.Basket.Aplication\FreeCourse.Services.Basket.Aplication.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\FreeCourse.Services.Basket.Persistence\FreeCourse.Services.Basket.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

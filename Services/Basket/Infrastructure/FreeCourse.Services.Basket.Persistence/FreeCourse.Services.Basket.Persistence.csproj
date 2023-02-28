@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Services\Basket\Core\Application\FreeCourse.Services.Basket.Aplication\FreeCourse.Services.Basket.Aplication.csproj" />
+    <ProjectReference Include="..\..\Core\Application\FreeCourse.Services.Basket.Aplication\FreeCourse.Services.Basket.Aplication.csproj" />
   </ItemGroup>
 
 </Project>
