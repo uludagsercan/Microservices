@@ -8,6 +8,7 @@ namespace FreeCourse.Shared
         public static IServiceCollection AddSharedService(this IServiceCollection services)
         {
             services.AddScoped<ISharedIdentityService, SharedIdentityService>();
+            services.AddHttpContextAccessor();
             return services;
         }
     }

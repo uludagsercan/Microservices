@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using FreeCourse.Services.Basket.Aplication.Services.Repositories.BasketRepository;
-using MediatR;
-using FreeCourse.Services.Basket.Aplication.Services.Features.BasketFeature.Queries.GetBasket;
 using FreeCourse.Shared.Services;
+using MediatR;
 
 namespace FreeCourse.Services.Basket.Aplication.Services.Features.BasketFeature.Queries.GetBasket
 {

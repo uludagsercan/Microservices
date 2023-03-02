@@ -1,7 +1,11 @@
 using Catalog.Application;
+using FreeCourse.Shared;
+using FreeCourse.Shared.Services;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Persistence;
+using System.IdentityModel.Tokens.Jwt;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +15,29 @@ builder.Services.AddControllers(options =>
     options.Filters.Add(new AuthorizeFilter());
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddSharedService();
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
+builder.Services.AddMassTransit(opt =>
+{
+
+    opt.UsingRabbitMq((context, cfg) =>
+    {
+      
+
+        cfg.Host(builder.Configuration["RabbitMQSettings:Uri"], port: Convert.ToUInt16(builder.Configuration["RabbitMQSettings:Port"]), "/", host =>
+        {
+            host.Username(builder.Configuration["RabbitMQSettings:Username"]);
+            host.Password(builder.Configuration["RabbitMQSettings:Password"]);
+        });
+        cfg.ConfigurePublish(x => x.UseExecute(context2 =>
+        {
+            var deneme = context.GetRequiredService<IHttpContextAccessor>().HttpContext;
+            context2.Headers.Set("userId", context.CreateScope().ServiceProvider.GetService<ISharedIdentityService>().GetUserId);
+        }));
+    });
+});
+
+
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
