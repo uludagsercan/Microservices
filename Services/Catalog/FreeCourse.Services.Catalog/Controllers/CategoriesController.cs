@@ -3,7 +3,6 @@ using Catalog.Application.Services.Features.CategoryFeature.Commands.UpdateCateg
 using Catalog.Application.Services.Features.CategoryFeature.Queries.GetAllCategory;
 using Catalog.Application.Services.Features.CategoryFeature.Queries.GetAllCategoryWithPage;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FreeCourse.Services.Catalog.Controllers
@@ -19,7 +18,6 @@ namespace FreeCourse.Services.Catalog.Controllers
             _mediator = mediator;
         }
         [HttpPost("[action]")]
-        [Authorize(Policy ="catalog_write_permission")]
         public async Task<IActionResult> Add([FromBody]CreateCategoryCommandRequest createCategoryCommandRequest)
         {
             var result =await _mediator.Send(createCategoryCommandRequest);
@@ -29,7 +27,6 @@ namespace FreeCourse.Services.Catalog.Controllers
         }
 
         [HttpPut("[action]")]
-        [Authorize(Policy = "catalog_write_permission")]
         public async Task<IActionResult> Update([FromBody] UpdateCategoryCommandRequest updateCategoryCommandRequest)
         {
             var result = await _mediator.Send(updateCategoryCommandRequest);
@@ -39,10 +36,8 @@ namespace FreeCourse.Services.Catalog.Controllers
         }
 
         [HttpGet("[action]")]
-        [Authorize(Policy = "catalog_read")]
         public async Task<IActionResult> GetAll([FromQuery]GetAllCategoryQueryRequest getAllCategoryQueryRequest)
         {
-            var t = HttpContext.Request.Headers["Authorize"];
             var result = await _mediator.Send(getAllCategoryQueryRequest);
             if (result.Response.IsSuccessful)
                 return Ok(result);
@@ -50,7 +45,6 @@ namespace FreeCourse.Services.Catalog.Controllers
         }
 
         [HttpGet("[action]/{Page}/{PageSize}")]
-        [Authorize(Policy = "catalog_read_permission")]
         public async Task<IActionResult> GetAllCategoryWithPage([FromRoute] GetAllCategoryWtihPageQueryRequest getAllCategoryQueryRequest)
         {
             var result = await _mediator.Send(getAllCategoryQueryRequest);

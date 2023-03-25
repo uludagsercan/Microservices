@@ -15,7 +15,6 @@ using System.Threading.Tasks;
 using IdentityModel.Client;
 using FreeCourse.IdentityServer.Settings;
 using Microsoft.Extensions.Options;
-using IdentityServer4.Models;
 
 namespace FreeCourse.IdentityServer.Controllers
 {
@@ -25,12 +24,12 @@ namespace FreeCourse.IdentityServer.Controllers
     public class UserController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<ApplicationRole> _roleManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly HttpClient _httpClient;
         private readonly IdentityServerSetting _identityServerSetting;
 
 
-        public UserController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, HttpClient httpClient, IOptions<IdentityServerSetting> setting)
+        public UserController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, HttpClient httpClient, IOptions<IdentityServerSetting> setting)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -39,7 +38,6 @@ namespace FreeCourse.IdentityServer.Controllers
         }
 
         [HttpPost]
-        
         public async Task<IActionResult> SignUp([FromBody] SignupDto signup)
         {
             var user = new ApplicationUser
@@ -48,49 +46,15 @@ namespace FreeCourse.IdentityServer.Controllers
                 Email = signup.Email,
                 City = signup.City,
             };
-            var result = await _userManager.CreateAsync(user, signup.Password);
-            var role = await _roleManager.FindByNameAsync("user");
-            if (role == null)
-            {
-                ApplicationRole applicationRole = new()
-                {
-                    Name = "user"
-                };
-                var identityResult = await _roleManager.CreateAsync(applicationRole);
-                if (identityResult.Succeeded)
-                {
-                    await _userManager.AddToRoleAsync(user, applicationRole.Name);
-                }
-            }
-            else
-            {
-              
-                    await _userManager.AddToRoleAsync(user, role.Name);
-            }
 
-            
+            var result = await _userManager.CreateAsync(user, signup.Password);
+
+
             if (!result.Succeeded)
             {
                 return BadRequest(ResponseDto<NoContent>.Fail(result.Errors.Select(x => x.Description).ToList(), 400));
             }
-
-            var discoveryEndpoint =await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest()
-            {
-                Address = _identityServerSetting.ServerUri,
-                Policy = new DiscoveryPolicy { RequireHttps = true }
-
-            });
-            var passwordTokenRequest = new PasswordTokenRequest
-            {
-                ClientId ="AngularClientForUser",
-                ClientSecret = "secret",
-                UserName = signup.Email,
-                Password = signup.Password,
-                Address = discoveryEndpoint.TokenEndpoint,
-            };
-            var token = await _httpClient.RequestPasswordTokenAsync(passwordTokenRequest);
-
-            return Ok(token.Json);
+            return NoContent();
         }
         [HttpPost]
         public async Task<IActionResult> SignIn([FromBody] SignupDto signup)
@@ -101,6 +65,7 @@ namespace FreeCourse.IdentityServer.Controllers
                 Email = signup.Email,
                 City = signup.City,
             };
+            bool checkUser = await _userManager.CheckPasswordAsync(user, signup.Password);
             var disco = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
             {
                 Address = _identityServerSetting.ServerUri,
@@ -112,13 +77,12 @@ namespace FreeCourse.IdentityServer.Controllers
                 ClientSecret = "secret",
                 UserName = signup.Email,
                 Password = signup.Password,
-                Address = disco.TokenEndpoint,
-
+                Address = disco.TokenEndpoint
             };
             var token = await _httpClient.RequestPasswordTokenAsync(passwordTokenRequest);
             user.RefreshToken = token.RefreshToken;
             var result = await _userManager.UpdateAsync(user);
-
+            
             return Ok(token.Json);
         }
         [HttpGet]
@@ -130,28 +94,6 @@ namespace FreeCourse.IdentityServer.Controllers
             if (user == null)
                 return BadRequest();
             return Ok(new { Id = user.Id, Username = user.UserName, Email = user.Email, City = user.City });
-        }
-
-
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetPublicToken()
-        {
-            var disco = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest()
-            {
-                Address = _identityServerSetting.ServerUri,
-                Policy = new DiscoveryPolicy { RequireHttps =true}
-            });
-
-            var tokenRequest = new ClientCredentialsTokenRequest();
-            tokenRequest.ClientId = "AngularClient";
-            tokenRequest.ClientSecret = "secret";
-            tokenRequest.GrantType = "client_credentials";
-            tokenRequest.Address = disco.TokenEndpoint;
-            var token =await _httpClient.RequestTokenAsync(tokenRequest);
-            return Ok(token.Json);
-
-
         }
     }
 }

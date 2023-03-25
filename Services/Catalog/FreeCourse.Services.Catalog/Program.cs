@@ -12,11 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers(options =>
 {
-  
+    options.Filters.Add(new AuthorizeFilter());
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddSharedService();
-
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
 builder.Services.AddMassTransit(opt =>
 {
 
@@ -43,6 +43,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationService(builder.Configuration);
 builder.Services.AddPersistenceService();
+builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     options.Authority = builder.Configuration["IdentityServerUrl"];
@@ -50,17 +51,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     
     options.RequireHttpsMetadata = false;
 });
-builder.Services.AddAuthorization(conf =>
-{
-    conf.AddPolicy("catalog_read", policy =>
-    {
-        policy.RequireClaim("scope", "catalog_readpermission", "api_full_permission");
-
-    });
-  
-
-});
-
 
 builder.Services.AddCors(opt =>
 {

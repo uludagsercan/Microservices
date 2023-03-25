@@ -15,13 +15,13 @@ namespace FreeCourse.IdentityServer
         public static IEnumerable<ApiResource> ApiResources =>
             new ApiResource[]
             {
-                new ApiResource("resource_catalog"){Scopes={"catalog_fullpermission","catalog_readpermission","catalog_writepermission"}},
-                new ApiResource("resource_photo_stock"){Scopes={"photo_stock_fullpermission,api_full_permission,photo_stock_readpermission,photo_stock_writepermission"}},
-                new ApiResource("resource_basket"){Scopes={"basket_fullpermission,api_full_permission,basket_readpermission,basket_writepermission"}},
-                new ApiResource("resource_discount"){Scopes={"discount_fullpermission,api_full_permission,discount_readpermission,discount_writepermission"}},
-                new ApiResource("resource_order"){Scopes={"order_fullpermission,api_full_permission,order_writepermission,order_readpermission"}},
-                new ApiResource("resource_payment"){Scopes={"payment_fullpermission,api_full_permission,payment_writepermission,payment_readpermission"}},
-                new ApiResource("resource_gateway"){Scopes={"gateway_fullpermission,api_full_permission"}},
+                new ApiResource("resource_catalog"){Scopes={"catalog_fullpermission"}},
+                new ApiResource("resource_photo_stock"){Scopes={"photo_stock_fullpermission"}},
+                new ApiResource("resource_basket"){Scopes={"basket_fullpermission"}},
+                new ApiResource("resource_discount"){Scopes={"discount_fullpermission"}},
+                new ApiResource("resource_order"){Scopes={"order_fullpermission"}},
+                new ApiResource("resource_payment"){Scopes={"payment_fullpermission"}},
+                new ApiResource("resource_gateway"){Scopes={"gateway_fullpermission"}},
                 new ApiResource(IdentityServerConstants.LocalApi.ScopeName),
 
             };
@@ -31,7 +31,6 @@ namespace FreeCourse.IdentityServer
                        new IdentityResources.Email(),
                        new IdentityResources.OpenId(),
                        new IdentityResources.Profile(),
-                     
                        new IdentityResource(){Name="roles",DisplayName="Roles",Description="Kullanıcı Rolleri",UserClaims=new[]{ "role"} }
                    };
 
@@ -39,9 +38,6 @@ namespace FreeCourse.IdentityServer
             new ApiScope[]
             {
              new ApiScope("catalog_fullpermission","Catalog API için full erişim"),
-             new ApiScope("catalog_writepermission","Catalog API için full erişim"),
-             new ApiScope("catalog_readpermission","Catalog API için full erişim"),
-             new ApiScope("api_full_permission","API için full erişim"),
              new ApiScope("photo_stock_fullpermission","Photo Stock API için full erişim"),
              new ApiScope("basket_fullpermission","Basket API için full erişim"),
              new ApiScope("discount_fullpermission","Discount API için full erişim"),
@@ -60,7 +56,7 @@ namespace FreeCourse.IdentityServer
                     ClientId ="AngularClient",
                     ClientSecrets={new("secret".Sha256())},
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    AllowedScopes={ "catalog_readpermission", "photo_stock_readpermission", "gateway_fullpermission", "api_full_permission",  IdentityServerConstants.LocalApi.ScopeName }
+                    AllowedScopes={"catalog_fullpermission", "photo_stock_fullpermission", "gateway_fullpermission",  IdentityServerConstants.LocalApi.ScopeName }
                 },
                    new Client
                 {
@@ -74,8 +70,7 @@ namespace FreeCourse.IdentityServer
                     RefreshTokenExpiration=TokenExpiration.Absolute,
                     AbsoluteRefreshTokenLifetime = (int) (DateTime.Now.AddDays(60)- DateTime.Now).TotalSeconds ,
                     RefreshTokenUsage = TokenUsage.ReUse
-                },
-               
+                }
             };
     }
 }

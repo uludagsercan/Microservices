@@ -4,7 +4,7 @@ using FreeCourse.IdentityServer.Models;
 
 namespace FreeCourse.IdentityServer.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser,ApplicationRole,string>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

@@ -15,13 +15,12 @@ using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
 using System;
 using System.Linq;
-using System.Security.Claims;
 
 namespace FreeCourse.IdentityServer
 {
     public class Program
     {
-        public static  int Main(string[] args)
+        public static int Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -53,28 +52,14 @@ namespace FreeCourse.IdentityServer
                     applicationDBContext.Database.Migrate();
 
                     var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-                    var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
-
-
                     if (!userManager.Users.Any())
                     {
-                        var applicationRole = new ApplicationRole()
+                        userManager.CreateAsync(new ApplicationUser
                         {
-                            Name="suser"
-                        };
-                        roleManager.CreateAsync(applicationRole).Wait();
-                       
-                        var user = new ApplicationUser
-                        {
-
                             UserName = "sercan.uludag",
                             Email = "sercan.uludag91@hotmail.com",
                             City = "Kocaeli"
-                        };
-                        userManager.CreateAsync(user, "myP@ssword123").Wait();
-                        userManager.AddClaimAsync(user, new Claim("scope", "api_full_permission")).Wait();
-                        userManager.AddToRoleAsync(user, "suser").Wait();
-
+                        }, "myP@ssword123").Wait();
                     }
                 }
 
