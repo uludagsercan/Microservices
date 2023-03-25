@@ -96,11 +96,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreeCourse.Services.Basket.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FakePayment", "FakePayment", "{66B02572-6B1E-4895-86FA-CC8EF2E17718}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeCourse.Services.FakePaymentAPI", "Services\FakePayment\FreeCourse.Services.FakePaymentAPI\FreeCourse.Services.FakePaymentAPI.csproj", "{BAF6A81D-8616-41E6-8BB1-B17A49E06F28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreeCourse.Services.FakePaymentAPI", "Services\FakePayment\FreeCourse.Services.FakePaymentAPI\FreeCourse.Services.FakePaymentAPI.csproj", "{BAF6A81D-8616-41E6-8BB1-B17A49E06F28}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{DEC35EF8-4967-498B-99F5-AD5C9278095D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeCourse.Gateway", "FreeCourse.Gateway\FreeCourse.Gateway.csproj", "{98BC478E-8B69-4DD2-AC0E-4717269CA78C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreeCourse.Gateway", "FreeCourse.Gateway\FreeCourse.Gateway.csproj", "{98BC478E-8B69-4DD2-AC0E-4717269CA78C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "License", "License", "{ED9E66FA-9D89-4239-9D8B-D8502EAF5FDE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -248,6 +250,7 @@ Global
 		{66B02572-6B1E-4895-86FA-CC8EF2E17718} = {759457FF-14BD-4D4C-BB0E-E9DE80FA225E}
 		{BAF6A81D-8616-41E6-8BB1-B17A49E06F28} = {66B02572-6B1E-4895-86FA-CC8EF2E17718}
 		{98BC478E-8B69-4DD2-AC0E-4717269CA78C} = {DEC35EF8-4967-498B-99F5-AD5C9278095D}
+		{ED9E66FA-9D89-4239-9D8B-D8502EAF5FDE} = {759457FF-14BD-4D4C-BB0E-E9DE80FA225E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {99E17CE0-5A57-49CE-AB12-A4D35D3A62D7}

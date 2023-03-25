@@ -28,5 +28,9 @@ namespace FreeCourse.Services.Basket.Aplication.Services.Features.BasketFeature.
             });
             await _basketWriteRepository.SaveOrUpdateAsync(userId, basket);
         }
+        //public Task Consume(ConsumeContext<CreateNameChangedEvent> context)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
